@@ -121,7 +121,7 @@ async def start(bot: Client, m: Message):
             InlineKeyboardButton("⚡ Upload Files", callback_data="upload_files")
         ],
         [
-            InlineKeyboardButton("🔔 Channel", url="https://t.me/roxybasicneedbot1"),
+            InlineKeyboardButton("🔔 Channel", url="https://t.me/+5H5tJB8hlJo2MjU1"),
             InlineKeyboardButton("👨‍💻 Developer", url="https://t.me/roxycontactbot")
         ]
     ])
