@@ -146,7 +146,6 @@ async def restart_handler(_, m):
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 @bot.on_message(filters.command(["upload"]))
-@force_subscribe
 async def upload(bot: Client, m: Message):
     editable = await m.reply_text('📤 Send your TXT file with links ⚡️')
     input: Message = await bot.listen(editable.chat.id)
