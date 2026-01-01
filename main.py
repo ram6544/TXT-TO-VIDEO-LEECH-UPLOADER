@@ -13,7 +13,7 @@ import subprocess
 
 import core as helper
 from utils import progress_bar
-from vars import API_ID, API_HASH, BOT_TOKEN, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL_LINK, ADMINS, OWNER_ID
+from vars import API_ID, API_HASH, BOT_TOKEN, ADMINS, OWNER_ID
 from aiohttp import ClientSession
 from pyromod import listen
 from subprocess import getstatusoutput
@@ -51,27 +51,6 @@ async def is_subscribed(bot, user_id):
     except Exception as e:
         print(f"Error checking subscription: {e}")
         return False
-
-# Force Subscribe Decorator
-def force_subscribe(func):
-    async def wrapper(bot, message):
-        if FORCE_SUB_CHANNEL:
-            is_sub = await is_subscribed(bot, message.from_user.id)
-            if not is_sub:
-                keyboard = InlineKeyboardMarkup([
-                    [InlineKeyboardButton("🔔 Join Channel", url="https://t.me/roxybasicneedbot1")],
-                    [InlineKeyboardButton("🔄 Refresh", callback_data="refresh_sub")]
-                ])
-                await message.reply_text(
-                    f"<b>🔒 Access Denied!</b>\n\n"
-                    f"You must join our channel to use this bot.\n\n"
-                    f"👇 Click the button below to join:",
-                    reply_markup=keyboard,
-                    parse_mode=ParseMode.HTML
-                )
-                return
-        await func(bot, message)
-    return wrapper
 
 # Enhanced URL validation function
 def is_valid_url(url):
@@ -111,7 +90,6 @@ def extract_url_from_line(line):
     return None, None
 
 @bot.on_message(filters.command(["start"]))
-@force_subscribe
 async def start(bot: Client, m: Message):
     welcome_text = f"<b>👋 Hello {m.from_user.mention}!</b>\n\n<blockquote>📁 I am a bot for downloading files from your <b>.TXT</b> file and uploading them to Telegram.\n\n🚀 To get started, send /upload command and follow the steps.</blockquote>"
     
